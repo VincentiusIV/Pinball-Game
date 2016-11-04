@@ -5,6 +5,7 @@ public class TextAnimations : MonoBehaviour
 {
     public AnimationCurve whooshAnimationCurve;
     public AnimationCurve shakeAnimationCurve;
+    public AnimationCurve moveToSide;
 
     void Awake()
     {
@@ -37,6 +38,23 @@ public class TextAnimations : MonoBehaviour
             yield return new WaitForSeconds(0.0f);
             this.transform.Translate(new Vector3((shakeAnimationCurve.Evaluate(i)*2 ), 
                                                  (-shakeAnimationCurve.Evaluate(i) *2), 
+                                                 0.0f));
+        }
+    }
+
+    public void moveSideways()
+    {
+        if (this.isActiveAndEnabled)
+        StartCoroutine(moveSidewaysAnimation());
+    }
+    IEnumerator moveSidewaysAnimation()
+    {
+        this.gameObject.SetActive(true);
+        for (float i = 0; i < 1; i += 0.03f)
+        {
+            yield return new WaitForSeconds(0.0f);
+            this.transform.Translate(new Vector3((moveToSide.Evaluate(i) * 2),
+                                                 0.0f,
                                                  0.0f));
         }
     }
